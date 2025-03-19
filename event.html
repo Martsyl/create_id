@@ -42,23 +42,41 @@
         </div>
     </div>
     <script>
-        document.getElementById('imageUpload').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const preview = document.getElementById('preview');
-                    const uploadIcon = document.getElementById('uploadIcon');
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                    uploadIcon.style.display = 'none';
-                    
-                    // Store image in localStorage
-                    localStorage.setItem('studentImage', e.target.result);
-                }
-                reader.readAsDataURL(file);
-            }
-        });
+       document.getElementById('imageUpload').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const preview = document.getElementById('preview');
+            const uploadIcon = document.getElementById('uploadIcon');
+            preview.src = e.target.result;
+            preview.style.display = 'block';
+            uploadIcon.style.display = 'none';
+
+            // Store image in localStorage
+            localStorage.setItem('studentImage', e.target.result);
+        }
+        reader.readAsDataURL(file);
+    }
+});
+
+// Prevent form submission with parameters in the URL
+document.querySelector("form").addEventListener("submit", function(event) {
+    event.preventDefault(); // Stop default form submission
+
+    // Get form values
+    const name = document.getElementById("name").value;
+    const course = document.getElementById("course").value;
+    const imageSrc = document.getElementById("preview").src;
+
+    // Store form data in localStorage
+    localStorage.setItem("studentName", name);
+    localStorage.setItem("studentCourse", course);
+
+    // Redirect to ID page without showing parameters in URL
+    window.location.href = "id.html";
+});
+
     </script>
 </body>
 </html>

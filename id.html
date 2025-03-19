@@ -75,31 +75,31 @@
     <button class="download-btn" onclick="downloadID()">Download ID</button>
 
     <script>
-        // Get URL parameters
-        const params = new URLSearchParams(window.location.search);
-        const name = params.get("name") || "Student";
-        const course = params.get("course") || "Course";
+        // Retrieve stored form data from localStorage
+const name = localStorage.getItem("studentName") || "Student";
+const course = localStorage.getItem("studentCourse") || "Course";
+const imageSrc = localStorage.getItem("studentImage");
 
-        // Get image from localStorage
-        const imageSrc = localStorage.getItem("studentImage");
+// Update the ID card with stored data
+document.getElementById("studentName").textContent = name;
+document.getElementById("studentCourse").textContent = course;
 
-        // Update the ID card with form data
-        document.getElementById("studentName").textContent = name;
-        document.getElementById("studentCourse").textContent = course;
-        if (imageSrc) {
-            document.getElementById("profilePic").src = imageSrc;
-        }
+if (imageSrc && imageSrc !== "#") {
+    document.getElementById("profilePic").src = imageSrc;
+}
 
-        function downloadID() {
-            const idCard = document.getElementById("idCard");
+// Function to download the ID card
+function downloadID() {
+    const idCard = document.getElementById("idCard");
 
-            html2canvas(idCard, { scale: 2 }).then(canvas => {
-                const link = document.createElement("a");
-                link.href = canvas.toDataURL("image/png");
-                link.download = `${name}-ID-Card.png`;
-                link.click();
-            });
-        }
+    html2canvas(idCard, { scale: 2 }).then(canvas => {
+        const link = document.createElement("a");
+        link.href = canvas.toDataURL("image/png");
+        link.download = `${name}-ID-Card.png`;
+        link.click();
+    });
+}
+
     </script>
 </body>
 </html>
