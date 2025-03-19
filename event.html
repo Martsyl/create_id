@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="event.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card p-4 shadow">
+                    <h4 class="text-center mb-4 text-white">Student Form</h4>
+                    <form id="studentForm" action="id.html" method="GET">
+                        <div class="form-group text-center">
+                            <label class="d-block text-white">Upload Image</label>
+                            <div class="upload-container" onclick="document.getElementById('imageUpload').click()">
+                                <img id="preview" class="preview-image" src="#" alt="Preview" style="display: none;">
+                                <div class="upload-icon" id="uploadIcon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M23 19v-6a2 2 0 0 0-2-2h-4l-3-3H10L7 11H3a2 2 0 0 0-2 2v6"/>
+                                        <circle cx="12" cy="13" r="3"/>
+                                    </svg>
+                                </div>
+                                <input type="file" id="imageUpload" class="upload-input" accept="image/*">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="name" class="text-white">Name</label>
+                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="course" class="text-white">Course</label>
+                            <input type="text" class="form-control" id="course" name="course" placeholder="Enter your course" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Generate ID</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('imageUpload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const preview = document.getElementById('preview');
+                    const uploadIcon = document.getElementById('uploadIcon');
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    uploadIcon.style.display = 'none';
+                    
+                    // Store image in localStorage
+                    localStorage.setItem('studentImage', e.target.result);
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
